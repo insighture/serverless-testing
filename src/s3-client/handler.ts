@@ -1,14 +1,16 @@
-const { GetObjectCommand, S3Client } = require("@aws-sdk/client-s3");
-const logger = require("../logger");
+import { Handler } from "aws-lambda";
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import logger from "../logger";
+import * as dotenv from "dotenv";
 
-require("dotenv").config();
+dotenv.config();
 
-exports.handler = async (event) => {
+export const handler: Handler = async () => {
   const s3Client = new S3Client({
     region: process.env.S3_BUCKET_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_KEY,
+      accessKeyId: process.env.AWS_ACCESS_KEY!,
+      secretAccessKey: process.env.AWS_SECRET_KEY!,
     },
   });
 
@@ -24,7 +26,7 @@ exports.handler = async (event) => {
     const command = new GetObjectCommand(params);
     const response = await s3Client.send(command);
 
-    const objectData = await response.Body.transformToString();
+    const objectData = await response.Body!.transformToString();
     logger.info("successfully retrieved object from S3");
 
     // Return a successful response
@@ -41,7 +43,7 @@ exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({
         message: "Error retrieving the object",
-        error: error.message,
+        error: (error as Error).message,
       }),
     };
   }

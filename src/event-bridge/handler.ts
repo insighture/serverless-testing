@@ -1,23 +1,25 @@
-const {
+import { Handler } from "aws-lambda";
+import {
   PutEventsCommand,
   EventBridgeClient,
-} = require("@aws-sdk/client-eventbridge");
-const logger = require("../logger");
+} from "@aws-sdk/client-eventbridge";
+import logger from "../logger";
+import * as dotenv from "dotenv";
 
-require("dotenv").config();
+dotenv.config();
 
-exports.handler = async (event) => {
+export const handler: Handler = async (event) => {
   const eventBridgeClient = new EventBridgeClient({
     region: process.env.EVENT_BRIDGE_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_KEY,
+      accessKeyId: process.env.AWS_ACCESS_KEY!,
+      secretAccessKey: process.env.AWS_SECRET_KEY!,
     },
   });
 
   // Extract data from the API Gateway event
   const { body, httpMethod, path } = event;
-  const parsedBody = JSON.parse(body);
+  const parsedBody = JSON.parse(body!);
 
   const params = {
     Entries: [
@@ -56,7 +58,7 @@ exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({
         message: "Error sending the event to EventBridge",
-        error: error.message,
+        error: (error as Error).message,
       }),
     };
   }

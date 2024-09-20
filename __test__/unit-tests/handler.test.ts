@@ -1,9 +1,14 @@
-const { handler } = require("../../handler"); // Import the Lambda function
+import { describe, test, expect } from "@jest/globals";
+import { handler } from "../../src/handler";
+import { Callback, Context } from "aws-lambda";
 
 describe("Lambda Function Tests", () => {
+  const context: Context = {} as Context;
+  const callback: Callback = () => {};
+
   test("should return a message with the provided name", async () => {
     const event = { name: "John" }; // Input event with name
-    const result = await handler(event);
+    const result = await handler(event, context, callback);
     const responseBody = JSON.parse(result.body);
 
     // Check response structure
@@ -13,7 +18,7 @@ describe("Lambda Function Tests", () => {
 
   test("should return a message with default name when no name is provided", async () => {
     const event = {}; // Input event without name
-    const result = await handler(event);
+    const result = await handler(event, context, callback);
     const responseBody = JSON.parse(result.body);
 
     // Check response structure

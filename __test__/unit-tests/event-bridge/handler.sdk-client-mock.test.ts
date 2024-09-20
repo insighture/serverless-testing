@@ -1,13 +1,18 @@
-const { mockClient } = require("aws-sdk-client-mock");
-const {
+import { mockClient } from "aws-sdk-client-mock";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
+import { Callback, Context } from "aws-lambda";
+import {
   EventBridgeClient,
   PutEventsCommand,
-} = require("@aws-sdk/client-eventbridge");
-const { handler } = require("../../../event-bridge/handler");
+} from "@aws-sdk/client-eventbridge";
+import { handler } from "../../../src/event-bridge/handler";
 
 const eventBridgeMock = mockClient(EventBridgeClient);
 
 describe("handler with aws-sdk-client-mock dependency", () => {
+  const context: Context = {} as Context;
+  const callback: Callback = () => {};
+
   afterEach(() => {
     eventBridgeMock.reset();
   });
@@ -23,7 +28,7 @@ describe("handler with aws-sdk-client-mock dependency", () => {
       httpMethod: "POST",
       path: "/test",
     };
-    const result = await handler(event);
+    const result = await handler(event, context, callback);
 
     expect(result.statusCode).toBe(200);
     expect(JSON.parse(result.body)).toEqual({
@@ -42,7 +47,7 @@ describe("handler with aws-sdk-client-mock dependency", () => {
       httpMethod: "POST",
       path: "/test",
     };
-    const result = await handler(event);
+    const result = await handler(event, context, callback);
 
     expect(result.statusCode).toBe(500);
     expect(JSON.parse(result.body)).toEqual({

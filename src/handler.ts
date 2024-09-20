@@ -1,4 +1,6 @@
-exports.handler = async (event) => {
+import { Handler } from "aws-lambda";
+
+export const handler: Handler = async (event) => {
   const name = event.name || "Guest"; // Default to 'Guest' if no name is provided
   const message = `Hello, ${name}! Welcome to AWS Lambda.`;
 

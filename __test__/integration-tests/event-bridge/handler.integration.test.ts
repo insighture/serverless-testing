@@ -1,4 +1,7 @@
-const { handler } = require("../../../event-bridge/handler");
+import { describe, expect, test } from "@jest/globals";
+import { handler } from "../../../src/event-bridge/handler";
+import { Callback, Context } from "aws-lambda";
+import { APIGatewayProxyEvent } from "aws-lambda/trigger/api-gateway-proxy";
 
 describe("Lambda Integration Tests", () => {
   test("should return a successful response from EventBridge", async () => {
@@ -6,10 +9,13 @@ describe("Lambda Integration Tests", () => {
       body: JSON.stringify({ key: "value" }),
       httpMethod: "POST",
       path: "/test",
-    };
+    } as APIGatewayProxyEvent;
+
+    const context: Context = {} as Context;
+    const callback: Callback = () => {};
 
     // Call the Lambda function
-    const result = await handler(event);
+    const result = await handler(event, context, callback);
     const responseBody = JSON.parse(result.body);
 
     expect(result.statusCode).toBe(200);
