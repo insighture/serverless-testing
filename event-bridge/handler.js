@@ -2,6 +2,7 @@ const {
   PutEventsCommand,
   EventBridgeClient,
 } = require("@aws-sdk/client-eventbridge");
+const logger = require("../logger");
 
 require("dotenv").config();
 
@@ -37,8 +38,10 @@ exports.handler = async (event) => {
 
   try {
     // Send the event to EventBridge
+    logger.info("sending event to event bridge");
     const response = await eventBridgeClient.send(command);
 
+    logger.info("successfully sent event to event bridge");
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -47,6 +50,8 @@ exports.handler = async (event) => {
       }),
     };
   } catch (error) {
+    logger.error(error, "error sending event to event bridge");
+
     return {
       statusCode: 500,
       body: JSON.stringify({

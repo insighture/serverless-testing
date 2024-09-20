@@ -27,6 +27,7 @@
     "@aws-sdk/client-eventbridge": "^3.654.0",
     "@aws-sdk/client-s3": "^3.654.0",
     "@aws-sdk/credential-providers": "^3.654.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "pino": "^9.4.0"
   }
 }

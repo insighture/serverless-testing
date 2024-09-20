@@ -1,4 +1,5 @@
 const { GetObjectCommand, S3Client } = require("@aws-sdk/client-s3");
+const logger = require("../logger");
 
 require("dotenv").config();
 
@@ -18,10 +19,13 @@ exports.handler = async (event) => {
 
   try {
     // Get the object from S3
+
+    logger.info("retrieving object from S3");
     const command = new GetObjectCommand(params);
     const response = await s3Client.send(command);
 
     const objectData = await response.Body.transformToString();
+    logger.info("successfully retrieved object from S3");
 
     // Return a successful response
     return {
@@ -32,6 +36,7 @@ exports.handler = async (event) => {
       }),
     };
   } catch (error) {
+    logger.error(error, "error retrieving object from S3");
     return {
       statusCode: 500,
       body: JSON.stringify({
