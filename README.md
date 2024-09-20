@@ -4,9 +4,9 @@ AWS Lambda functions with basic unit tests & integration tests
 
 ## Project Structure
 
-- `s3-client/handler.js`: Contains the AWS Lambda function to retrieve an object from an S3 bucket.
-- `event-bridge/handler.js`: Contains the AWS Lambda function to trigger an EventBridge event.
-- `handler.js`: Contains a simple AWS Lambda function that returns a greeting message.
+- `src/s3-client/handler.ts`: Contains the AWS Lambda function to retrieve an object from an S3 bucket.
+- `src/event-bridge/handler.ts`: Contains the AWS Lambda function to trigger an EventBridge event.
+- `src/handler.ts`: Contains a simple AWS Lambda function that returns a greeting message.
 - `.gitignore`: Specifies files and directories to be ignored by Git.
 - `README.md`: This file.
 
@@ -16,6 +16,7 @@ AWS Lambda functions with basic unit tests & integration tests
 - npm
 - AWS account with S3 access
 - AWS credentials configured in `.env` file
+- TypeScript
 
 ## Setup
 
@@ -24,6 +25,7 @@ AWS Lambda functions with basic unit tests & integration tests
    ```sh
    git clone <repository-url>
    cd serverless-testing
+   checkout ts-main
    ```
 
 2. Install dependencies:
@@ -40,6 +42,10 @@ AWS Lambda functions with basic unit tests & integration tests
    S3_BUCKET_NAME=<your-bucket-name>
    S3_KEY_VALUE=<your-object-key>
    EVENT_BRIDGE_REGION=<your-event-bridge-region>
+   ```
+4. Compile TypeScript to JavaScript:
+   ```sh
+   npm run build
    ```
 
 ## Testing
