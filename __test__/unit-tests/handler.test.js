@@ -1,4 +1,4 @@
-const { handler } = require("../../handler"); // Import the Lambda function
+import { handler } from "../../handler";
 
 describe("Lambda Function Tests", () => {
   test("should return a message with the provided name", async () => {

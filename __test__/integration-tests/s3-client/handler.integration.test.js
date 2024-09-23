@@ -1,4 +1,4 @@
-const { handler } = require("../../../s3-client/handler");
+import { handler } from "../../../s3-client/handler";
 
 describe("Lambda Integration Tests", () => {
   test("should return object data from S3 bucket", async () => {

@@ -1,5 +1,5 @@
-const { handler } = require("../../../s3-client/handler");
-const { S3Client } = require("@aws-sdk/client-s3");
+import { S3Client } from "@aws-sdk/client-s3";
+import { handler } from "../../../s3-client/handler";
 
 jest.mock("@aws-sdk/client-s3");
 

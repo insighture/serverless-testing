@@ -1,4 +1,4 @@
-const { handler } = require("../../../event-bridge/handler");
+import { handler } from "../../../event-bridge/handler";
 
 describe("Lambda Integration Tests", () => {
   test("should return a successful response from EventBridge", async () => {

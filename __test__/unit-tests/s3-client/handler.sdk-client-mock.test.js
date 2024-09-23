@@ -1,6 +1,6 @@
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
-const { mockClient } = require("aws-sdk-client-mock");
-const { handler } = require("../../../s3-client/handler");
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { mockClient } from "aws-sdk-client-mock";
+import { handler } from "../../../s3-client/handler";
 
 const s3Mock = mockClient(S3Client);
 

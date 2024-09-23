@@ -1,9 +1,9 @@
-const { mockClient } = require("aws-sdk-client-mock");
-const {
+import {
   EventBridgeClient,
   PutEventsCommand,
-} = require("@aws-sdk/client-eventbridge");
-const { handler } = require("../../../event-bridge/handler");
+} from "@aws-sdk/client-eventbridge";
+import { mockClient } from "aws-sdk-client-mock";
+import { handler } from "../../../event-bridge/handler";
 
 const eventBridgeMock = mockClient(EventBridgeClient);
 
