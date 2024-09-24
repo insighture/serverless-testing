@@ -1,10 +1,10 @@
-const { GetObjectCommand, S3Client } = require("@aws-sdk/client-s3");
-const logger = require("../logger");
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 import dotenv from "dotenv";
+import logger from "../logger.js";
 dotenv.config();
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const s3Client = new S3Client({
     region: process.env.S3_BUCKET_REGION,
     credentials: {

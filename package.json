@@ -2,7 +2,7 @@
   "name": "serverless-testing",
   "version": "1.0.0",
   "description": "AWS Lambda functions with basic unit tests & integration tests",
-  "main": "handler.js",
+  "main": "server/index.js",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . ",
@@ -31,6 +31,7 @@
     "@aws-sdk/client-s3": "^3.654.0",
     "@aws-sdk/credential-providers": "^3.654.0",
     "dotenv": "^16.4.5",
+    "express": "^4.21.0",
     "pino": "^9.4.0"
   }
 }

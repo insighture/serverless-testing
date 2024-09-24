@@ -1,10 +1,11 @@
-const {
+import {
   PutEventsCommand,
   EventBridgeClient,
-} = require("@aws-sdk/client-eventbridge");
-const logger = require("../logger");
+} from "@aws-sdk/client-eventbridge";
 
-require("dotenv").config();
+import dotenv from "dotenv";
+import logger from "../logger.js";
+dotenv.config();
 
 exports.handler = async (event) => {
   const eventBridgeClient = new EventBridgeClient({
