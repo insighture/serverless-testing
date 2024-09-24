@@ -10,7 +10,6 @@ const callS3ClientHandler = () => {
       const result = await m.handler(req);
       res.send(result); // Send the response back to the client
     } catch (error) {
-      console.error("Error while calling S3 client handler:", error);
       res.status(500).send("Internal Server Error");
     }
   };
@@ -18,6 +17,4 @@ const callS3ClientHandler = () => {
 
 app.get("/trigger/s3-client", callS3ClientHandler());
 
-app.listen({ port: 3000 }, () => {
-  console.log("Server is running on port 3000");
-});
+export default app;
