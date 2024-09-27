@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./__test__/.env.test" });
+
 import { handler } from "../../../event-bridge/handler";
 
 describe("Lambda Integration Tests", () => {

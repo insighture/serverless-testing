@@ -1,16 +1,12 @@
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-import dotenv from "dotenv";
 import logger from "../logger.js";
-dotenv.config();
+import { fromIni } from "@aws-sdk/credential-providers";
 
 export const handler = async (event) => {
   const s3Client = new S3Client({
     region: process.env.S3_BUCKET_REGION,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_KEY,
-    },
+    credentials: fromIni({ profile: process.env.AWS_PROFILE }),
   });
 
   const params = {

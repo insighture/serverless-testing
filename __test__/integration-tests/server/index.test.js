@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./__test__/.env.test" });
+
 import request from "supertest";
 import app from "../../../server/index.js";
 

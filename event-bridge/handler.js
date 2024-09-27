@@ -3,17 +3,13 @@ import {
   EventBridgeClient,
 } from "@aws-sdk/client-eventbridge";
 
-import dotenv from "dotenv";
 import logger from "../logger.js";
-dotenv.config();
+import { fromIni } from "@aws-sdk/credential-providers";
 
 exports.handler = async (event) => {
   const eventBridgeClient = new EventBridgeClient({
     region: process.env.EVENT_BRIDGE_REGION,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_KEY,
-    },
+    credentials: fromIni({ profile: process.env.AWS_PROFILE }),
   });
 
   // Extract data from the API Gateway event
