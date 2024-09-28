@@ -6,7 +6,7 @@ import {
 import logger from "../logger.js";
 import { fromIni } from "@aws-sdk/credential-providers";
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const eventBridgeClient = new EventBridgeClient({
     region: process.env.EVENT_BRIDGE_REGION,
     credentials: fromIni({ profile: process.env.AWS_PROFILE }),
