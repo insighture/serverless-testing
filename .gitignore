@@ -124,3 +124,5 @@ dist
 
 .idea
 package-lock.json
+
+.aws-sam
