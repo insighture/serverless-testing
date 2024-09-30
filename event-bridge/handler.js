@@ -7,10 +7,17 @@ import logger from "../logger.js";
 import { fromIni } from "@aws-sdk/credential-providers";
 
 export const handler = async (event) => {
-  const eventBridgeClient = new EventBridgeClient({
+  const eventBridgeConfig = {
     region: process.env.EVENT_BRIDGE_REGION,
-    credentials: fromIni({ profile: process.env.AWS_PROFILE }),
-  });
+  };
+
+  if (process.env.AWS_PROFILE) {
+    eventBridgeConfig.credentials = fromIni({
+      profile: process.env.AWS_PROFILE,
+    });
+  }
+
+  const eventBridgeClient = new EventBridgeClient(eventBridgeConfig);
 
   // Extract data from the API Gateway event
   const { body, httpMethod, path } = event;

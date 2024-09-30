@@ -4,10 +4,15 @@ import logger from "../logger.js";
 import { fromIni } from "@aws-sdk/credential-providers";
 
 export const handler = async (event) => {
-  const s3Client = new S3Client({
+  const s3ClientConfig = {
     region: process.env.S3_BUCKET_REGION,
-    credentials: fromIni({ profile: process.env.AWS_PROFILE }),
-  });
+  };
+
+  if (process.env.AWS_PROFILE) {
+    s3ClientConfig.credentials = fromIni({ profile: process.env.AWS_PROFILE });
+  }
+
+  const s3Client = new S3Client(s3ClientConfig);
 
   const params = {
     Bucket: process.env.S3_BUCKET_NAME,

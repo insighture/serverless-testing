@@ -8,7 +8,7 @@ export const handler = async (event) => {
     statusCode: 200,
     body: JSON.stringify({
       message: message,
-      input: body
+      input: body,
     }),
   };
 };

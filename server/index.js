@@ -23,7 +23,7 @@ const callEventBridgeHandler = () => {
       const result = await m.handler(req);
       res.send(result); // Send the response back to the client
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.status(500).send("Internal Server Error");
     }
   };
@@ -37,7 +37,7 @@ const callGenericHandler = () => {
       const result = await m.handler(req);
       res.send(result); // Send the response back to the client
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.status(500).send("Internal Server Error");
     }
   };

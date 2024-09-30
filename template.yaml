@@ -1,8 +1,8 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
 Resources:
   S3HandlerFunction:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: s3-client/handler.handler
       Runtime: nodejs18.x
@@ -10,10 +10,9 @@ Resources:
       Timeout: 30
       Environment:
         Variables:
-          AWS_PROFILE: 'insighture-sandbox'
-          S3_BUCKET_NAME: 'lamda-jest-poc-20240918'
-          S3_BUCKET_REGION: 'eu-north-1'
-          S3_KEY_VALUE: 'product.json'
+          S3_BUCKET_NAME: "lamda-jest-poc-20240918"
+          S3_BUCKET_REGION: "eu-north-1"
+          S3_KEY_VALUE: "product.json"
       Events:
         ApiEvent:
           Type: Api
@@ -21,7 +20,7 @@ Resources:
             Path: /trigger/s3-client
             Method: get
   EventBridgeHandlerFunction:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: event-bridge/handler.handler
       Runtime: nodejs18.x
@@ -29,8 +28,7 @@ Resources:
       Timeout: 30
       Environment:
         Variables:
-          EVENT_BRIDGE_REGION: 'eu-north-1'
-          AWS_PROFILE: 'insighture-sandbox'
+          EVENT_BRIDGE_REGION: "eu-north-1"
       Events:
         ApiEvent:
           Type: Api
@@ -38,7 +36,7 @@ Resources:
             Path: /trigger/event-bridge
             Method: get
   HandlerFunction:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: handler.handler
       Runtime: nodejs18.x
