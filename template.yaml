@@ -19,6 +19,12 @@ Resources:
           Properties:
             Path: /trigger/s3-client
             Method: get
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource: arn:aws:s3:::lamda-jest-poc-20240918/*
   EventBridgeHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -35,6 +41,12 @@ Resources:
           Properties:
             Path: /trigger/event-bridge
             Method: get
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - events:PutEvents
+              Resource: arn:aws:events:eu-north-1:438463683713:event-bus/default
   HandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
