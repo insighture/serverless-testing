@@ -25,6 +25,10 @@ Resources:
               Action:
                 - s3:GetObject
               Resource: arn:aws:s3:::lamda-jest-poc-20240918/*
+    Metadata:
+      BuildMethod: esbuild
+      minify: false
+      exclude: [ "event-bridge/", ".env", "handler.js", "__test__/", "server/" ]
   EventBridgeHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,6 +51,10 @@ Resources:
               Action:
                 - events:PutEvents
               Resource: arn:aws:events:eu-north-1:438463683713:event-bus/default
+    Metadata:
+      BuildMethod: esbuild
+      minify: false
+    exclude: [ "s3-client/", ".env", "handler.js", "__test__/", "server/"  ]
   HandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -59,3 +67,7 @@ Resources:
           Properties:
             Path: /trigger
             Method: post
+    Metadata:
+      BuildMethod: esbuild
+      minify: false
+      exclude: ["s3-client/", "event-bridge/", ".env", "__test__/", "server/" ]
