@@ -1,5 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  Env:
+    Type: String
+
 Resources:
   S3HandlerFunction:
     Type: AWS::Serverless::Application
@@ -15,3 +20,5 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: resources/handler-function.yaml
+      Parameters:
+        Env: !Ref Env

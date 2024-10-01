@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: "A simple AWS Lambda function"
+
+Parameters:
+  Env:
+    Type: String
+
 Resources:
   HandlerFunction:
     Type: AWS::Serverless::Function
@@ -14,6 +19,9 @@ Resources:
           Properties:
             Path: /trigger
             Method: post
+      Environment:
+        Variables:
+          ENV: !Ref Env
     Metadata:
       BuildMethod: esbuild
       minify: false
