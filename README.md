@@ -69,3 +69,26 @@ npm run test
 ```sh
 npm run test:coverage
 ```
+
+- Run lambda functions with a docker container
+
+```sh
+sam build
+sam local start-api --parameter-overrides Env=Dev
+```
+
+### Deploying Nested Stacks
+
+This project uses nested stacks to organize and manage AWS resources. Each nested stack is defined in a separate YAML file in resource directory and referenced in the main `template.yaml` file.
+
+To deploy the nested stacks, you can use the `sam deploy` command. The main stack will automatically deploy the nested stacks defined in the `template.yaml`.
+
+1. **Build the SAM application**:
+```sh
+sam build
+```
+
+2. **Deploy the nested stack**:
+```sh
+sam deploy --guided
+```
