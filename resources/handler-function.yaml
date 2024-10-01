@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "A simple AWS Lambda function"
+Resources:
+  HandlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handler.handler
+      Runtime: nodejs18.x
+      CodeUri: ../
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /trigger
+            Method: post
+    Metadata:
+      BuildMethod: esbuild
+      minify: false
+      exclude: ["s3-client/", "event-bridge/", ".env", "__test__/", "server/"]

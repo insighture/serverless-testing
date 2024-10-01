@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "Put event to EventBridge"
+Resources:
+  EventBridgeHandlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: event-bridge/handler.handler
+      Runtime: nodejs18.x
+      CodeUri: ../
+      Timeout: 30
+      Environment:
+        Variables:
+          EVENT_BRIDGE_REGION: "eu-north-1"
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /trigger/event-bridge
+            Method: get
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - events:PutEvents
+              Resource: arn:aws:events:eu-north-1:438463683713:event-bus/default

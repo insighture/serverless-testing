@@ -2,64 +2,16 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Resources:
   S3HandlerFunction:
-    Type: AWS::Serverless::Function
+    Type: AWS::Serverless::Application
     Properties:
-      Handler: s3-client/handler.handler
-      Runtime: nodejs18.x
-      CodeUri: .
-      Timeout: 30
-      Environment:
-        Variables:
-          S3_BUCKET_NAME: "lamda-jest-poc-20240918"
-          S3_BUCKET_REGION: "eu-north-1"
-          S3_KEY_VALUE: "product.json"
-      Events:
-        ApiEvent:
-          Type: Api
-          Properties:
-            Path: /trigger/s3-client
-            Method: get
-      Policies:
-        - Statement:
-            - Effect: Allow
-              Action:
-                - s3:GetObject
-              Resource: arn:aws:s3:::lamda-jest-poc-20240918/*
+      Location: resources/s3-handler-function.yaml
+
   EventBridgeHandlerFunction:
-    Type: AWS::Serverless::Function
+    Type: AWS::Serverless::Application
     Properties:
-      Handler: event-bridge/handler.handler
-      Runtime: nodejs18.x
-      CodeUri: .
-      Timeout: 30
-      Environment:
-        Variables:
-          EVENT_BRIDGE_REGION: "eu-north-1"
-      Events:
-        ApiEvent:
-          Type: Api
-          Properties:
-            Path: /trigger/event-bridge
-            Method: get
-      Policies:
-        - Statement:
-            - Effect: Allow
-              Action:
-                - events:PutEvents
-              Resource: arn:aws:events:eu-north-1:438463683713:event-bus/default
+      Location: resources/event-bridge-handler-function.yaml
+
   HandlerFunction:
-    Type: AWS::Serverless::Function
+    Type: AWS::Serverless::Application
     Properties:
-      Handler: handler.handler
-      Runtime: nodejs18.x
-      CodeUri: .
-      Events:
-        ApiEvent:
-          Type: Api
-          Properties:
-            Path: /trigger
-            Method: post
-    Metadata:
-      BuildMethod: esbuild
-      minify: false
-      exclude: ["s3-client/", "event-bridge/", ".env", "__test__/", "server/" ]
+      Location: resources/handler-function.yaml

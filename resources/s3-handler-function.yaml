@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "Get object from S3 bucket"
+Resources:
+  S3HandlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: s3-client/handler.handler
+      Runtime: nodejs18.x
+      CodeUri: ../
+      Timeout: 30
+      Environment:
+        Variables:
+          S3_BUCKET_NAME: "lamda-jest-poc-20240918"
+          S3_BUCKET_REGION: "eu-north-1"
+          S3_KEY_VALUE: "product.json"
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /trigger/s3-client
+            Method: get
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource: arn:aws:s3:::lamda-jest-poc-20240918/*

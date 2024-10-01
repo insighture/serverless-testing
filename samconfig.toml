@@ -1,9 +1,9 @@
 version = 0.1
 [default.deploy.parameters]
-stack_name = "serverless-testing"
+stack_name = "serverless-testing-nested-stack"
 resolve_s3 = true
-s3_prefix = "serverless-testing"
+s3_prefix = "serverless-testing-nested-stack"
 region = "eu-north-1"
 confirm_changeset = true
-capabilities = "CAPABILITY_IAM"
+capabilities = "CAPABILITY_IAM CAPABILITY_AUTO_EXPAND"
 image_repositories = []
